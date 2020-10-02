@@ -1,0 +1,10 @@
+out
+venv
+docker-compose.yml
+db
+.idea
+__pycache__
+*__pycache__*
+books
+static/.webassets-cache/
+tests/ap*/static
