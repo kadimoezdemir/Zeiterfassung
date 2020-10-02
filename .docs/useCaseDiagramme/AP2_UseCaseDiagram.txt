@@ -1,0 +1,32 @@
+@startuml
+
+left to right direction
+
+title AP2
+
+:Personalsachbearbeiter:
+database ZeiterfassungsDatenbank
+
+rectangle Fehltageverwaltung {
+Personalsachbearbeiter --> (Fehltag eintragen)
+Personalsachbearbeiter --> (Fehltag aendern)
+Personalsachbearbeiter --> (Fehltag loeschen)
+Personalsachbearbeiter --> (Sortierverfahren aendern)
+Personalsachbearbeiter --> (Filtereinstellungen aendern)
+(Fehltag eintragen) ..> (Mitarbeiter auswaehlen) : <<include>>
+(Fehltag aendern) ..> (Mitarbeiter auswaehlen) : <<include>>
+(Fehltag loeschen) ..> (Mitarbeiter auswaehlen) : <<include>>
+(Sortierverfahren aendern) ..> (Mitarbeiter auswaehlen) : <<include>>
+(Filtereinstellungen aendern) ..> (Mitarbeiter auswaehlen) : <<include>>
+}
+
+rectangle Stammdatenverwaltung {
+(Mitarbeiter suchen)
+}
+(Fehltag eintragen) --> ZeiterfassungsDatenbank
+(Fehltag aendern) --> ZeiterfassungsDatenbank
+(Fehltag loeschen) -> ZeiterfassungsDatenbank
+(Filtereinstellungen aendern) -> ZeiterfassungsDatenbank
+(Mitarbeiter auswaehlen) --> (Mitarbeiter suchen) : <<include>>
+
+@enduml

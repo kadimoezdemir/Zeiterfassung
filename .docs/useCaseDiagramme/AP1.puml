@@ -1,0 +1,29 @@
+@startuml "AP1"
+
+actor Personalsachbearbeiter
+database PersonalDatenbank
+
+rectangle Stammdatenverwaltung {
+    Personalsachbearbeiter -right-> (Mitarbeiter suchen)
+    Personalsachbearbeiter -right-> (Mitarbeiterdaten ändern)
+    Personalsachbearbeiter -right-> (Mitarbeiter deaktivieren)
+    (Mitarbeiterdaten ändern) .up.> (Mitarbeiter suchen) : <<include>>
+    (Mitarbeiter deaktivieren) .down.> (Mitarbeiter suchen) : <<include>>
+    Personalsachbearbeiter -right-> (Mitarbeiter anlegen)
+    
+}
+
+rectangle Zugangskontrolle {
+    (Login als Personalsachbearbeiter)
+}
+
+(Mitarbeiter anlegen) .right.> (Login als Personalsachbearbeiter) : <<include>>
+(Mitarbeiter suchen) .right.> (Login als Personalsachbearbeiter) : <<include>>
+
+
+(Mitarbeiter suchen) -right-> PersonalDatenbank
+(Mitarbeiter deaktivieren) -right-> PersonalDatenbank
+(Mitarbeiter anlegen) -right-> PersonalDatenbank
+(Mitarbeiterdaten ändern) -right-> PersonalDatenbank
+
+@enduml
