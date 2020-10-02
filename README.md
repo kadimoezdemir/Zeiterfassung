@@ -13,7 +13,7 @@
 - Zudem stempelt der User hier Ein und Aus und sieht den letzten Zeitstempel (AP4)
 - Der Butten rechts oben in der Leiste loggt den User aus (AP3)
 
-![](https://ops.hs-kempten.de/swp/team-d/-/raw/master/MZE%20Screenshots/Home_PSB.jpg)
+![](https://github.com/kadimoezdemir/Zeiterfassung/blob/main/MZE%20Screenshots/Home_PSB.jpg)
 
 ### Meine Statistiken
 Hier kann ein Personalsachbearbeiters oder Mitarbeiter:
@@ -21,7 +21,7 @@ Hier kann ein Personalsachbearbeiters oder Mitarbeiter:
 - eigenen Stundensaldo sehen (AP6)
 - eigene Jahres Stunden Übersicht sehen (AP6)
 
-![](https://ops.hs-kempten.de/swp/team-d/-/raw/master/MZE%20Screenshots/Meine_Statistiken.jpg)
+![](https://github.com/kadimoezdemir/Zeiterfassung/blob/main/MZE%20Screenshots/Meine_Statistiken.jpg)
 
 ### Personalmanagement
 Hier kann ein Personalsachbearbeiters:
@@ -31,7 +31,7 @@ Hier kann ein Personalsachbearbeiters:
 - Statistiken einsehen (AP5 und AP6)
 - Zeitstempel bearbeiten (AP4)
 
-![](https://ops.hs-kempten.de/swp/team-d/-/raw/master/MZE%20Screenshots/Personalmgmt.jpg)
+![](https://github.com/kadimoezdemir/Zeiterfassung/blob/main/MZE%20Screenshots/Personalmgmt.jpg)
 
 <br></br>
 
@@ -49,8 +49,8 @@ Hier kann ein Personalsachbearbeiters:
 ### Mitarbeiter suchen
 - Eine wichtige Funktion die innerhalb des Systems mehrmals für die Suche von Usern verwendet wird
 
-![](https://ops.hs-kempten.de/swp/team-d/-/raw/master/MZE%20Screenshots/AP1_Mitarbeiter_suchen_1.jpg)
-![](https://ops.hs-kempten.de/swp/team-d/-/raw/master/MZE%20Screenshots/AP1_Mitarbeiter_suchen_2.jpg)
+![](https://github.com/kadimoezdemir/Zeiterfassung/blob/main/MZE%20Screenshots/AP1_Mitarbeiter_suchen_1.jpg)
+![](https://github.com/kadimoezdemir/Zeiterfassung/blob/main/MZE%20Screenshots/AP1_Mitarbeiter_suchen_2.jpg)
 
 <br></br>
 
@@ -58,15 +58,15 @@ Hier kann ein Personalsachbearbeiters:
 ### 1. Mitarbeiter anlegen über Personalmanagement -> Neuer Mitarbeiter
 - Neuer Mitarbeiter kann angelegt werden
 
-![](https://ops.hs-kempten.de/swp/team-d/-/raw/master/MZE%20Screenshots/AP1_Mitarbeiter_anlegen_1.jpg)
+![](https://github.com/kadimoezdemir/Zeiterfassung/blob/main/MZE%20Screenshots/AP1_Mitarbeiter_anlegen_1.jpg)
 
 - Plfichfelder müssen ausgefüllt werden, sonst kann nicht gespeichert werden
 
-![](https://ops.hs-kempten.de/swp/team-d/-/raw/master/MZE%20Screenshots/AP1_Mitarbeiter_anlegen_2.jpg)
+![](https://github.com/kadimoezdemir/Zeiterfassung/blob/main/MZE%20Screenshots/AP1_Mitarbeiter_anlegen_2.jpg)
 
 ### 2. Mitarbeiter bearbeiten über Personalmanagement -> Stammdatenverwaltung -> Mitarbeiter suchen
 
-![](https://ops.hs-kempten.de/swp/team-d/-/raw/master/MZE%20Screenshots/AP1_Mitarbeiter_bearbeiten.jpg)
+![](https://github.com/kadimoezdemir/Zeiterfassung/blob/main/MZE%20Screenshots/AP1_Mitarbeiter_bearbeiten.jpg)
 
 ### 3. Mitarbeiter aktivieren/deaktivieren über Personalmanagement -> Stammdatenverwaltung -> Mitarbeiter suchen
 
@@ -78,12 +78,12 @@ Hier kann ein Personalsachbearbeiters:
 ### 1. Fehltage einsehen/erstellen/bearbeiten über Personalmanagement -> Fehltage -> Mitarbeiter suchen
 - Hier kann die Sortierung angepasst und nach Kriterien gefilter werden
 
-![](https://ops.hs-kempten.de/swp/team-d/-/raw/master/MZE%20Screenshots/AP2_Fehltage_1_%C3%9Cbersicht_.jpg)
-![](https://ops.hs-kempten.de/swp/team-d/-/raw/master/MZE%20Screenshots/AP2_Fehltage_3_filtern.jpg)
+![](https://github.com/kadimoezdemir/Zeiterfassung/blob/main/MZE%20Screenshots/AP2_Fehltage_1_%C3%9Cbersicht_.jpg)
+![](https://github.com/kadimoezdemir/Zeiterfassung/blob/main/MZE%20Screenshots/AP2_Fehltage_2_Fehltage_eintragen.jpg)
 
 ### 2. Fehltage eintragen über Personalmanagement -> Fehltage -> Mitarbeiter suchen -> Fehlzeit eintragen
 
-![](https://ops.hs-kempten.de/swp/team-d/-/raw/master/MZE%20Screenshots/AP2_Fehltage_2_Fehltage_eintragen.jpg)
+![](https://github.com/kadimoezdemir/Zeiterfassung/blob/main/MZE%20Screenshots/AP2_Fehltage_3_filtern.jpg)
 
 <br></br>
 
@@ -92,12 +92,12 @@ Hier kann ein Personalsachbearbeiters:
 - User kann erst auf die verschieden funktionen und Reiter zugreifen, wenn er eingeloggt ist
 - Für die Identifikation verwendet der User Username und Passwort
 
-![](https://ops.hs-kempten.de/swp/team-d/-/raw/master/MZE%20Screenshots/AP3_Login.jpg)
+![](https://github.com/kadimoezdemir/Zeiterfassung/blob/main/MZE%20Screenshots/AP3_Login.jpg)
 
 ### 2. Ausloggen
 - Nachfrage ob ausgeloggt werden soll
 
-![](https://ops.hs-kempten.de/swp/team-d/-/raw/master/MZE%20Screenshots/AP3_Logout.jpg)
+![](https://github.com/kadimoezdemir/Zeiterfassung/blob/main/MZE%20Screenshots/AP3_Logout.jpg)
 
 <br></br>
 
@@ -110,19 +110,19 @@ Hier kann ein Personalsachbearbeiters:
 
 - Sobald user 12 Stunden nach Einstempelung nicht ausstempelt gilt das Ausstempeln als vergessen -> Meldung erscheint
 
-![](https://ops.hs-kempten.de/swp/team-d/-/raw/master/MZE%20Screenshots/AP4_Austempel_vergessen_1.jpg)
-![](https://ops.hs-kempten.de/swp/team-d/-/raw/master/MZE%20Screenshots/AP4_Austempel_vergessen_2.jpg)
+![](https://github.com/kadimoezdemir/Zeiterfassung/blob/main/MZE%20Screenshots/AP4_Austempel_vergessen_1.jpg)
+![](https://github.com/kadimoezdemir/Zeiterfassung/blob/main/MZE%20Screenshots/AP4_Austempel_vergessen_2.jpg)
 
 ### 4. Meine Zeitstempel
 - Zeitstempel können gefiltert angezeigt werden
 
-![](https://ops.hs-kempten.de/swp/team-d/-/raw/master/MZE%20Screenshots/AP4_Meine_Zeitstempel.jpg)
+![](https://github.com/kadimoezdemir/Zeiterfassung/blob/main/MZE%20Screenshots/AP4_Meine_Zeitstempel.jpg)
 
 ### 5. Zeitstempel bearbeiten über Personalmanagement -> Zeitstempel bearbeiten -> Mitarbeiter suchen -> Bearbeiten
 - Zeitstempel von "User" kann hier bearbeitet werden
 
-![](https://ops.hs-kempten.de/swp/team-d/-/raw/master/MZE%20Screenshots/AP4_Zeitstempel_bearbeiten_von_User_1.jpg)
-![](https://ops.hs-kempten.de/swp/team-d/-/raw/master/MZE%20Screenshots/AP4_Zeitstempel_bearbeiten_von_User_2.jpg)
+![](https://github.com/kadimoezdemir/Zeiterfassung/blob/main/MZE%20Screenshots/AP4_Zeitstempel_bearbeiten_von_User_1.jpg)
+![](https://github.com/kadimoezdemir/Zeiterfassung/blob/main/MZE%20Screenshots/AP4_Zeitstempel_bearbeiten_von_User_2.jpg)
 
 <br></br>
 
@@ -135,15 +135,15 @@ Dieses Arbeitspaket beeinhaltet:
 ### 1. Anwesenheitstableau über Personalmanagement -> Statistiken -> Anwesenheitstableau
 - Anwesenheit der User werden angezeigt ggf. mit Grund
 
-![](https://ops.hs-kempten.de/swp/team-d/-/raw/master/MZE%20Screenshots/AP5_Anwesenheitstableau.jpg)
+![](https://github.com/kadimoezdemir/Zeiterfassung/blob/main/MZE%20Screenshots/AP5_Anwesenheitstableau.jpg)
 
 ### 2. Meine Jahresarbeitstage Übersicht Meine Statistiken -> Jahresarbeitstage-Übersicht -> Mitarbeiter suchen
 
-![](https://ops.hs-kempten.de/swp/team-d/-/raw/master/MZE%20Screenshots/AP5_Meine_Jahresarbeitstage_%C3%9Cbersicht.jpg)
+![](https://github.com/kadimoezdemir/Zeiterfassung/blob/main/MZE%20Screenshots/AP5_Jahresarbeitstage_%C3%9Cbersicht_von_Mitarbeiter.jpg)
 
 ### 3. Jahresarbeitstage Übersicht von Mitarbeiter über Personalmanagement -> Statistiken -> Jahresarbeitstage-Übersicht -> Mitarbeiter suchen
 
-![](https://ops.hs-kempten.de/swp/team-d/-/raw/master/MZE%20Screenshots/AP5_Jahresarbeitstage_%C3%9Cbersicht_von_Mitarbeiter.jpg)
+![](https://github.com/kadimoezdemir/Zeiterfassung/blob/main/MZE%20Screenshots/AP5_Meine_Jahresarbeitstage_%C3%9Cbersicht.jpg)
 
 <br></br>
 
@@ -156,24 +156,24 @@ Dieses Arbeitspaket beeinhaltet:
 
 ### 1. Meine Jahres Stunden Übersicht über Meine Statistiken -> Meine Jahresarbeitstage-Übersicht
 
-![](https://ops.hs-kempten.de/swp/team-d/-/raw/master/MZE%20Screenshots/AP6_Meine_Jahres_Stunden_%C3%9Cbersicht.jpg)
+![](https://github.com/kadimoezdemir/Zeiterfassung/blob/main/MZE%20Screenshots/AP6_Jahres_Stunden_%C3%9Cbersicht_von_Mitarbeiter.jpg)
 
 ### 2. Mein Stundensaldo über Meine Statistiken -> Mein Stundensaldo
 
-![](https://ops.hs-kempten.de/swp/team-d/-/raw/master/MZE%20Screenshots/AP6_Mein_Studensaldo_1.jpg)
+![](https://github.com/kadimoezdemir/Zeiterfassung/blob/main/MZE%20Screenshots/AP6_Mein_Studensaldo_1.jpg)
 
 ### 3. Jahres Stunden Übersicht von Mitarbeiter über Personalmanagement -> Statistiken -> Jahresstunden-Übersicht -> Mitarbeiter suchen
 
-![](https://ops.hs-kempten.de/swp/team-d/-/raw/master/MZE%20Screenshots/AP6_Jahres_Stunden_%C3%9Cbersicht_von_Mitarbeiter.jpg)
+![](https://github.com/kadimoezdemir/Zeiterfassung/blob/main/MZE%20Screenshots/AP6_Meine_Jahres_Stunden_%C3%9Cbersicht.jpg)
 
 ### 4. Stundensaldo von Mitarbeiter über Personalmanagement -> Statistiken -> Stundensaldo -> Mitarbeiter suchen
 
-![](https://ops.hs-kempten.de/swp/team-d/-/raw/master/MZE%20Screenshots/AP6_Studensaldo_von_Mitarbeiter.jpg)
+![](https://github.com/kadimoezdemir/Zeiterfassung/blob/main/MZE%20Screenshots/AP6_Studensaldo_von_Mitarbeiter.jpg)
 
 <br></br>
 <br></br>
 
 ### Die Homepage aus der Sicht eines Mitarbeiters
 
-![](https://ops.hs-kempten.de/swp/team-d/-/raw/master/MZE%20Screenshots/Home_MA.jpg)
+![](https://github.com/kadimoezdemir/Zeiterfassung/blob/main/MZE%20Screenshots/Home_MA.jpg)
 
