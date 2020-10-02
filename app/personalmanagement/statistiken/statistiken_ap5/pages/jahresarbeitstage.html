@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title%}
+Jahresarbeitstage Übersicht
+{% endblock %}
+
+{% block page_title %}
+Jahresarbeitstage von {{user.vorname}} {{user.nachname}}
+{% endblock %}
+
+{% block body %}
+
+<div class="dropdown float-right">
+    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        {{ year }}
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        {% for y in range(min_year, now_year + 1) %}
+        <a class="dropdown-item" href="{{ url_for('statistiken_ap5.jahresarbeitstage') }}/{{ username }}/{{ y }}">{{ y }}</a>
+        {% endfor %}
+    </div>
+</div>
+
+{{ legende() }}
+<br>
+{{kalender(group_month(fehlzeiten_liste(user, year)), year)}}
+
+{% endblock %}

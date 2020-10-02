@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Meine Zeitstempel{% endblock %}
+{% block page_title %}Meine Zeitstempel{% endblock %}
+
+{% block body %}
+{% if ztstart%}
+<!-- if ztstart: dann wird das Datum im Dateinput nach dem Filtern gespeichert -->
+<h5 class="form-inline">
+    &nbspZeitstempel filter vom &nbsp
+    <form action="{{url_for('meine_zeitstempel.home')}}" method="POST">
+        <input class="form-control form-control-sm" type="date" name="start" value="{{ ztstart }}">&nbsp bis&nbsp
+        <input class="form-control form-control-sm" type="date" name="end" value="{{ ztend }}">&nbsp
+        <input type="submit" name="submitButton" class="btn btn-primary btn-sm" value="filtern">
+        <input type="submit" name="submitButton" class="btn btn-secondary btn-sm" value="alle anzeigen">
+    </form>
+</h5>
+{% else %}
+<h5 class="form-inline">
+    &nbspZeitstempel filter vom &nbsp
+    <form action="{{url_for('meine_zeitstempel.home')}}" method="POST">
+        <input class="form-control form-control-sm" type="date" name="start" value="">&nbsp bis&nbsp
+        <input class="form-control form-control-sm" type="date" name="end" value="">&nbsp
+        <input type="submit" name="submitButton" class="btn btn-primary btn-sm" value="filtern">
+        <input type="submit" name="submitButton" class="btn btn-secondary btn-sm" value="alle anzeigen">
+    </form>
+</h5>
+{% endif %}
+
+{% if zt %}
+<table class="table">
+    <thead>
+    <tr style="text-align:center">
+        <th>Eingestempelt</th>
+        <th>Ausgestempelt</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for z in zt|sort(attribute='eingestempelt', reverse = true) %}
+    <tr class="table-light">
+        <td>
+            <div class="row">
+                <div class="col-xl-3">{{ ca.day_name[z.eingestempelt.weekday()] }}</div>
+                <div class="col-lg-3">{{ z.eingestempelt.strftime("%d.%m.%Y") }}</div>
+                <div class="col-lg-2">{{ z.eingestempelt.strftime("%H:%M:%S") }}</div>
+            </div>
+        </td>
+        {% if z.ausgestempelt %}
+        <td>
+            <div class="row">
+                <div class="col-xl-3">{{ ca.day_name[z.ausgestempelt.weekday()] }}</div>
+                <div class="col-lg-3">{{ z.ausgestempelt.strftime("%d.%m.%Y") }}</div>
+                <div class="col-lg-2">{{ z.ausgestempelt.strftime("%H:%M:%S") }}</div>
+            </div>
+
+        </td>
+        {% else %}
+        <td>
+            <div class="row">
+                <div style="padding-left:8em">-</div>
+            </div>
+        </td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<!-- Wenn keine Zeitstempel vorhanden sind-->
+<table class="table">
+    <thead>
+    <tr style="text-align:center">
+        <th>Eingestempelt</th>
+        <th>Ausgestempelt</th>
+    </tr>
+    </thead>
+</table>
+<center>Keine Zeitstempel vorhanden</center>
+{% endif %}
+{% endblock %}

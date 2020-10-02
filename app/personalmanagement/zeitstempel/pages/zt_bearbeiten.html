@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Zeitstempel bearbeiten/{{ ma.vorname }} {{ ma.nachname }}{% endblock %}
+
+{% block body %}
+<form action="" method="POST" class="form form-horizontal" role="form" novalidate>
+        <!-- Bearbeitung des Einstempel-Zeitstempels -->
+        <div class="form-group row">
+            {{ form.eingestempelt.label(class="col-md-2 offset-md-2 col-sm-12 text-md-right text-sm-left") }}
+            {{ form.eingestempelt(class="form-control col-md-6 col-sm-12" + (" is-invalid" if form.eingestempelt.errors else "")) }} <!-- type='datetime-local'-->
+            <div class="invalid-feedback col-sm-12 col-md-6 offset-sm-0 offset-md-4">
+                {% for error in form.eingestempelt.errors %}
+                {{ error }}
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Bearbeitung des Ausstempel-Zeitstempels -->
+        <div class="form-group row">
+            {{ form.ausgestempelt.label(class="col-md-2 offset-md-2 col-sm-12 text-md-right text-sm-left") }}
+            {{ form.ausgestempelt(class="form-control col-md-6 col-sm-12" + (" is-invalid" if form.ausgestempelt.errors else "")) }} <!-- type='datetime-local'-->
+            <div class="invalid-feedback col-sm-12 col-md-6 offset-sm-0 offset-md-4">
+                {% for error in form.ausgestempelt.errors %}
+                {{ error }}
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Die ID für das jeweilge Zeitstempelobjekt wird nicht angezeigt -->
+        <div class="form-group row">
+            {{ form.id(class="form-control col-md-6 col-sm-12" + (" is-invalid" if form.id.errors else ""), type="hidden") }}
+            <div class="invalid-feedback col-sm-12 col-md-6 offset-sm-0 offset-md-4">
+                {% for error in form.id.errors %}
+                {{ error }}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <!-- Speicher-Button und Abrechen-Button -->
+            <div class="col-sm-12 col-md-10 offset-sm-0 offset-md-4">
+                {{ form.submit(class="btn btn-success") }}
+                <a href="{{ url_for('zeitstempel.uebersicht', username=ma.username) }}" class="btn btn-danger">Abbrechen</a>
+            </div>
+        </div>
+    </form>
+ {% endblock %}
+

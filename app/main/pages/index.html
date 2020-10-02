@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+
+{% block title %}Mitarbeiterzeiterfassung{% endblock %}
+
+
+{# Anzeigen des Ein-/Ausstempelbuttons + der letzten Stempelzeit #}
+{% block zeitstempel %}
+<div class="col-lg-12 mb-4">
+    <div class="card menu-item" style="padding: 2rem;">
+        <div class="row">
+            <div class="col-md-2 offset-md-5 col-sm-12 offset-sm-0 text-center">
+                <!-- Ein- und Ausstempel-Button (UC4.1 + UC4.2) -->
+                <form action="{{url_for('main.home')}}" method="POST">
+                    {% if zt %}
+                    {% if not iseingestempelt %}
+                    <!-- iseingestempelt == False -> User hat sich ausgestempelt -> Einstempel-Button wird angezeigt -->
+                    <input type="submit" name="submitButton" class="btn btn-success btn-lg" value="Einstempeln">
+                    {% elif (ztdelta < 43200) %}
+                    <!-- iseingestempelt == True -> User hat sich eingestempelt -> Ausstempel-Button wird angezeigt -->
+                    <!-- Hier kommt User nur rein, wenn er die Seite vor 12std nach der letzten Einstempelung aufruft -->
+                    <input type="submit" name="submitButton" class="btn btn-danger btn-lg" value="Ausstempeln">
+                    {% else %}
+                    <!-- "Ausstempel Vergessen"-Button-->
+                    <button type="button" class="btn btn-secondary btn-lg" data-toggle="modal" data-target="#AustemplenVergessen">
+                        Ausstempeln
+                    </button>
+                    {% endif %}
+                    {% else %}
+                    <input type="submit" name="submitButton" class="btn btn-success btn-lg" value="Einstempeln">
+                    {% endif %}
+                </form>
+            </div>
+            <!-- Letzter Zeitstempel (UC 4.3) -->
+            <div class="col-md-5 col-sm-12 text-md-left text-sm-center">
+                {% if zt %}
+                {% if iseingestempelt == True %}
+                <h6>
+                    Zuletzt <span class="text-success">eingestempelt:</span> <br/> <span style="font-size:25px">{{ zt.eingestempelt.strftime("%d.%m.%Y, %H:%M:%S") }}</span>
+                </h6>
+                {% endif %}
+                {% if zt.ausgestempelt %}
+                <h6>
+                    Zuletzt <span class="text-danger">ausgestempelt:</span> <br/> <span style="font-size:25px">{{ zt.ausgestempelt.strftime("%d.%m.%Y, %H:%M:%S") }}</span>
+                </h6>
+                {% endif %}
+                {% else %}
+                <!-- Wenn keine Zeitstempel vorhanden sind-->
+                <h6>
+                    Keine Zeitstempel vorhanden
+                </h6>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Die Meldung als Modal, sobald sich ein User nach 12std vergessen hat auszustempeln -->
+<div class="modal fade" id="AustemplenVergessen" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ausstempeln vergessen?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Sie haben sich zuletzt vor über 12 Stunden eingestempelt.<br>
+                Melden Sie sich bitte bei einem Personalsachbearbeiter.<br>
+                Geben Sie Ihm Ihre richtigen Ausstempel-Daten mit.
+            </div>
+            <div class="modal-footer">
+                <form action="{{url_for('main.home')}}" method="POST">
+                    <input type="submit" name="submitButton" class="btn btn-danger btn-lg" value="Ausstempeln">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{# Anzeigen des Startmenüs: Meine Zeitstempel, Meine Statistiken, Personalmanagement #}
+{% block body %}
+<div class="row">
+    <div class="col-md-4 col-sm-12 mb-4">
+        <div class="card menu-item">
+            <img class="card-img-top" src="/static/icons/meine_zeitstempel.svg" alt="Card image cap">
+            <div class="card-body text-center"><a  class="btn btn-primary" href=" {{ url_for('meine_zeitstempel.home') }} ">Meine Zeitstempel</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12 mb-4">
+        <div class="card menu-item">
+            <img class="card-img-top" src="/static/icons/statistiken.svg" alt="Card image cap">
+            <div class="card-body text-center"><a  class="btn btn-primary" href=" {{ url_for('meine_statistiken.home') }} ">Meine Statistiken</a>
+            </div>
+        </div>
+    </div>
+    {% if current_user.rolle  == "Personalsachbearbeiter"%}
+    <div class="col-md-4 col-sm-12 mb-4">
+        <div class="card menu-item">
+            <img class="card-img-top" src="/static/icons/personalmgmt.svg" alt="Card image cap">
+            <div class="card-body text-center"><a  class="btn btn-primary" href=" {{ url_for('personalmanagement.home') }} ">Personalmanagement</a></div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,478 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}
+Fehlzeit Übersicht
+{% endblock %}
+{% block page_title %}
+Fehlzeit Übersicht
+{% endblock %}
+
+{% block body %}
+<div class="col-sm-12 float-left">
+
+    <!-- Anzeigen der Funktionsleiste -->
+
+    <div class="row">
+        <!-- Ausgewählten Mitarbeiter anzeigen -->
+        <div class="col-sm-8">
+            <h2> {{ mitarbeiter.vorname }} {{ mitarbeiter.nachname }} </h2>
+        </div>
+
+        <!-- "Fehlzeit eintragen"-Button anzeigen -->
+        <div class="col-sm-2 text-right">
+            <a class="btn btn-sm btn-primary" href="{{ url_for('fehltage.eintragen', username=mitarbeiter.username) }}">Fehlzeit eintragen</a>
+        </div>
+
+        <!-- "Sortierverfahren auswählen"-Button anzeigen -->
+        <div class="col-sm-1 text-right">
+            <div class="dropdown">
+                <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                    Sortieren
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <!--<button class="dropdown-item" id="datumAbsteigend">Datum absteigend</button>
+                    <button class="dropdown-item" id="datumAufsteigend">Datum aufsteigend</button>-->
+                    <a class="dropdown-item" href="{{ url_for('fehltage.uebersicht', username=mitarbeiter.username, sortiere_absteigend='true', filtern=filtern) }}">Datum absteigend</a>
+                    <a class="dropdown-item" href="{{ url_for('fehltage.uebersicht', username=mitarbeiter.username, sortiere_absteigend='false', filtern=filtern) }}">Datum aufsteigend</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- "Filter (de)aktivieren"-Button anzeigen -->
+        <div class="col-sm-1 text-right">
+            {% if filtern == "true" %}
+            <a class="btn btn-sm btn-secondary" href="{{ url_for('fehltage.uebersicht', username=mitarbeiter.username, sortiere_absteigend=sortiere_absteigend, filtern='false') }}">Filter</a>
+            {% elif filtern == "false" %}
+            <a class="btn btn-sm btn-secondary" href="{{ url_for('fehltage.uebersicht', username=mitarbeiter.username, sortiere_absteigend=sortiere_absteigend, filtern='true') }}">Filter</a>
+            {% endif %}
+        </div>
+
+    </div>
+    <hr class="col-sm-12 my-2 float-sm-left">
+</div>
+
+{% if filtern == "true" %}
+<!-- Filter-Formular anzeigen -->
+<div class="container">
+    <div class="card p-4">
+        <h4 class="card-title">Filtereinstellungen</h4>
+        <div class="row">
+
+            <form action="" method="POST" class="form form-horizontal col-md-12" role="form" novalidate>
+                <div class="row">
+                    <div class="col-md-6">
+                        <!-- Radiobuttons anzeigen -->
+                        <h6 class="card-subtitle mb-2 text-muted">Zeitrahmen</h6>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="radioUnbegrenzt" name="customRadio" class="custom-control-input" checked="checked" value="unbegrenzt">
+                            <label class="custom-control-label" for="radioUnbegrenzt">Unbegrenzt</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="radioTag" name="customRadio" class="custom-control-input">
+                            <label class="custom-control-label" for="radioTag">Tag</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="radioWoche" name="customRadio" class="custom-control-input" value="woche">
+                            <label class="custom-control-label" for="radioWoche">Woche</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="radioMonat" name="customRadio" class="custom-control-input" value="monat">
+                            <label class="custom-control-label" for="radioMonat">Monat</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="radioJahr" name="customRadio" class="custom-control-input" value="jahr">
+                            <label class="custom-control-label" for="radioJahr">Jahr</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="radioBeliebig" name="customRadio" class="custom-control-input" value="beliebig">
+                            <label class="custom-control-label" for="radioBeliebig">Beliebiger Zeitraum</label>
+                        </div>
+
+                        <!-- Checkboxes anzeigen -->
+                        <div style="margin-top: 2rem;">
+                            <h6 class="card-subtitle mb-2 text-muted">Grund des Fehlens</h6>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="erkrankung">
+                                <label class="custom-control-label" for="erkrankung">Erkrankung</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="homeOffice">
+                                <label class="custom-control-label" for="homeOffice">Home-Office</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="urlaub">
+                                <label class="custom-control-label" for="urlaub">Urlaub</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="zeitausgleich">
+                                <label class="custom-control-label" for="zeitausgleich">Zeitausgleich</label>
+                            </div>
+                        </div>
+                        </div>
+
+                    <div class="col-md-2"></div>
+                    <div class="col-md-3">
+
+                        <!-- Eingabefelder anzeigen -->
+                        <div id="formInput">
+                            <div class="form-group">
+                                <div id="radio"></div>
+                                <div id="jahr" class="text-left">
+                                    {{ form.jahr_jahr.label }}
+                                    {{ form.jahr_jahr(class="form-control w-20") }}</div>
+                                <div id="tag" class="text-left">
+                                    {{ form.datum_tag.label }}
+                                    {{ form.datum_tag(class="form-control w-20" + (" is-invalid" if form.datum_tag.errors else ""), type="date") }}
+                                </div>
+                                <div id="woche" class="text-left">
+                                    {{ form.datum_woche.label }}
+                                    {{ form.datum_woche(class="form-control w-20" + (" is-invalid" if form.datum_woche.errors else ""), type="date") }}
+                                    <br> <h6 class="font-weight-bold">oder</h6> <br>
+                                    {{ form.kalenderwoche.label }}
+                                    {{ form.kalenderwoche(class="form-control w-20" + (" is-invalid" if form.kalenderwoche.errors else "")) }}
+                                    {{ form.jahr_woche.label }}
+                                    {{ form.jahr_woche(class="form-control w-20" + (" is-invalid" if form.jahr_woche.errors else "")) }}
+                                </div>
+                                <div id="monat" class="text-left">
+                                    {{ form.monat.label }}
+                                    {{ form.monat(class="form-control w-20") }}
+                                    {{ form.jahr_monat.label }}
+                                    {{ form.jahr_monat(class="form-control w-20") }}
+                                </div>
+                                <div id="beliebig" class="text-left">
+                                    {{ form.datum_start.label }}
+                                    {{ form.datum_start(class="form-control w-20" + (" is-invalid" if form.datum_start.errors else ""), type="date") }}
+                                    {{ form.datum_ende.label }}
+                                    {{ form.datum_ende(class="form-control w-20" + (" is-invalid" if form.datum_ende.errors else ""), type="date") }}
+                                </div>
+                                <div id="erkrankungForm"></div>
+                                <div id="homeOfficeForm"></div>
+                                <div id="urlaubForm"></div>
+                                <div id="zeitausgleichForm"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Anwenden und Abbrechen Button -->
+                    <div class="col-md-12" style="text-align: center;">
+                        <div style="display: inline-block;">
+                            {{ form.submit(class="btn btn-success") }}
+                            <a href="{{ url_for('fehltage.uebersicht', username=mitarbeiter.username, sortiere_absteigend=sortiere_absteigend, filtern='false') }}" class="btn btn-danger">Abbrechen</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- filtern der Ergebnisse -->
+
+<div class="container col-sm-12 my-2 float-sm-left">
+    <div class="list-group">
+
+        <!-- Fehlzeiten absteigend sortieren und anzeigen -->
+        {% if sortiere_absteigend == 'true' %}
+        <div id="sortAbsteigend">
+            {% for fehlzeit in fehlzeiten|sort(attribute='datum_start', reverse = true) %}
+            <div class="list-group-item">
+
+                <div class="row no-gutters">
+                    <div class="ml-3 text-center">
+                        {{ fehlzeit.datum_start.strftime("%d.%m.%Y") }}
+                    </div>
+                    <div class="ml-3 text-center">
+                        bis
+                    </div>
+                    <div class="ml-3 text-center">
+                        {{ fehlzeit.datum_ende.strftime("%d.%m.%Y") }}:
+                    </div>
+                    <div class="col-2 ml-4 text-left font-weight-bold">
+                        <p class="">{{ fehlzeit.grund }}</p>
+                    </div>
+                    <div class="col-7 text-right">
+                        <a class="btn btn-sm btn-primary" href="{{ url_for('fehltage.bearbeiten', username=mitarbeiter.username, fehlzeit_id=fehlzeit.id) }}">Bearbeiten</a>
+
+                        <button type="button" id ="modalButton1" onclick="openModal({{fehlzeit.id}})" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#Sicherheitsabfrage">
+                            Löschen
+                        </button>
+
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Fehlzeiten aufsteigend sortieren und anzeigen -->
+        {% else %}
+        <div id="sortAufsteigend">
+            {% for fehlzeit in fehlzeiten|sort(attribute='datum_start', reverse = false) %}
+            <div class="list-group-item">
+
+                <div class="row no-gutters">
+                    <div class="ml-3 text-center">
+                        {{ fehlzeit.datum_start.strftime("%d.%m.%Y") }}
+                    </div>
+                    <div class="ml-3 text-center">
+                        bis
+                    </div>
+                    <div class="ml-3 text-center">
+                        {{ fehlzeit.datum_ende.strftime("%d.%m.%Y") }}:
+                    </div>
+                    <div class="col-2 ml-4 text-left font-weight-bold">
+                        <p class="">{{ fehlzeit.grund }}</p>
+                    </div>
+                    <div class="col-7 text-right">
+                        <a class="btn btn-sm btn-primary" href="{{ url_for('fehltage.bearbeiten', username=mitarbeiter.username, fehlzeit_id=fehlzeit.id) }}">Bearbeiten</a>
+
+                        <button type="button" id ="modalButton2" onclick="openModal({{fehlzeit.id}})" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#Sicherheitsabfrage">
+                            Löschen
+                        </button>
+
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Löschvorgang Sicherheitsabfrage -->
+<div class="modal fade" id="Sicherheitsabfrage" tabindex="-1" role="dialog" aria-labelledby="SicherheitsabfrageLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="SicherheitsabfrageLabel">Sicherheitsabfrage</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Möchten Sie diese Fehlzeit wirklich löschen?
+      </div>
+      <div class="modal-footer">
+            <a class="btn btn-sm btn-danger" data-dismiss="modal" style="color: white">Nein</a>
+            <a id="bestaetigung" class="btn btn-sm btn-success" href="{{ url_for('fehltage.loeschen', username=mitarbeiter.username, fehlzeit_id=0) }}">Ja</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Filter Variablen (für Javascript) -->
+<div id="filterWahl" hidden="true">{{ filter_wahl }}</div>
+{% if checkboxes %}
+<div id="erkrankungBox" hidden="true">{{ checkboxes.erkrankung }}</div>
+<div id="homeOfficeBox" hidden="true">{{ checkboxes.home_office }}</div>
+<div id="urlaubBox" hidden="true">{{ checkboxes.urlaub }}</div>
+<div id="zeitausgleichBox" hidden="true">{{ checkboxes.zeitausgleich }}</div>
+{% endif %}
+
+<script type="text/javascript">
+    document.onload = main();
+
+    // aktuell gewählte Filtereinstellung laden/anzeigen
+    function main(){
+        // Radiobuttonauswahl laden/anzeigen
+        var filter_wahl = document.getElementById('filterWahl').innerHTML;
+        if (filter_wahl == 'unbegrenzt'){
+            loadFormUnbegrenzt();
+            document.getElementById('radioUnbegrenzt').checked = "checked";
+        }
+        else if (filter_wahl == 'tag'){
+            loadFormTag();
+            document.getElementById('radioTag').checked = "checked";
+        }
+        else if (filter_wahl == 'woche'){
+            loadFormWoche();
+            document.getElementById('radioWoche').checked = "checked";
+        }
+        else if (filter_wahl == 'monat'){
+            loadFormMonat();
+            document.getElementById('radioMonat').checked = "checked";
+        }
+        else if (filter_wahl == 'jahr'){
+            loadFormJahr();
+            document.getElementById('radioJahr').checked = "checked";
+        }
+        else if (filter_wahl == 'beliebig'){
+            loadFormBeliebig();
+            document.getElementById('radioBeliebig').checked = "checked";
+        }
+        else{
+            loadFormUnbegrenzt();
+        }
+
+        // Checkboxeauswahl laden/anzeigen
+        if(document.getElementById('erkrankungBox').innerHTML == 'true'){
+            document.getElementById('erkrankungForm').innerHTML = '{{ form.erkrankung(value="true", type="hidden") }}';
+            document.getElementById('erkrankung').checked = 'true';
+        }
+        if(document.getElementById('homeOfficeBox').innerHTML == 'true'){
+            document.getElementById('homeOfficeForm').innerHTML = '{{ form.home_office(value="true", type="hidden") }}';
+            document.getElementById('homeOffice').checked = 'true';
+        }
+        if(document.getElementById('urlaubBox').innerHTML == 'true'){
+            document.getElementById('urlaubForm').innerHTML = '{{ form.urlaub(value="true", type="hidden") }}';
+            document.getElementById('urlaub').checked = 'true';
+        }
+        if(document.getElementById('zeitausgleichBox').innerHTML == 'true'){
+            document.getElementById('zeitausgleichForm').innerHTML = '{{ form.zeitausgleich(value="true", type="hidden") }}';
+            document.getElementById('zeitausgleich').checked = 'true';
+        }
+    }
+
+    // Radiobutton EventListener
+    document.getElementById('radioUnbegrenzt').addEventListener('click', loadFormUnbegrenzt);
+    document.getElementById('radioTag').addEventListener('click', loadFormTag);
+    document.getElementById('radioWoche').addEventListener('click', loadFormWoche);
+    document.getElementById('radioMonat').addEventListener('click', loadFormMonat);
+    document.getElementById('radioJahr').addEventListener('click', loadFormJahr);
+    document.getElementById('radioBeliebig').addEventListener('click', loadFormBeliebig);
+
+    // Checkbox EventListener
+    document.getElementById('erkrankung').addEventListener('click', changeBoxErkrankung);
+    document.getElementById('homeOffice').addEventListener('click', changeBoxHomeOffice);
+    document.getElementById('urlaub').addEventListener('click', changeBoxUrlaub);
+    document.getElementById('zeitausgleich').addEventListener('click', changeBoxZeitausgleich);
+
+    // Sortierverfahren EventListener
+    //document.getElementById('datumAbsteigend').addEventListener('click', sortDatumAbsteigend);
+    //document.getElementById('datumAufsteigend').addEventListener('click', sortDatumAufsteigend);
+
+    // Der Sicherheitsabfrage die richtige Fehlzeit ID zum Link hinzufügen
+    function openModal(f_id){
+        let x = document.getElementById('bestaetigung');
+        x.href = x.href.substring(0, x.href.length-1) + f_id;
+    }
+
+    // Die folgenden Funktionen sorgen dafür, dass wenn ein Radiobutton betätigt wird nur die passenden
+    // Eingabefelder angezeigt und alle anderen ausgeblendet werden
+    // Die ersten beiden Funktionen sind zum besseren Verständnis auskommentiert
+
+    function loadFormUnbegrenzt(){
+        // Blende alle Eingabefelder aus
+        alleAusblenden();
+        // Speichere, dass der Radiobutton "Unbegrenzt" gewählt wurde
+        var output = '';
+        output += '{{ form.radio(value="unbegrenzt", type="hidden") }}';
+        document.getElementById('radio').innerHTML = output;
+        // Es müssen keine Eingabefelder angezeigt werden, weil bei einem unbegrenzten Zeitraum keine Eingabefelder notwendig sind.
+    }
+
+    function loadFormTag(){
+        // Blende alle Eingabefelder aus
+        alleAusblenden();
+        // Speichere, dass der Radiobutton "Tag" gewählt wurde
+        var output = '';
+        output += '{{ form.radio(value="tag", type="hidden") }}';
+        document.getElementById('radio').innerHTML = output;
+        // Zeige die zur Auswahl passenden Eingabefelder an
+        document.getElementById('tag').style.display = "block";
+    }
+
+    function loadFormWoche(){
+        alleAusblenden();
+        var output = '';
+        output += '{{ form.radio(value="woche", type="hidden") }}';
+        document.getElementById('radio').innerHTML = output;
+        document.getElementById('woche').style.display = "block";
+    }
+
+    function loadFormMonat(){
+        alleAusblenden();
+        var output = '';
+        output += '{{ form.radio(value="monat", type="hidden") }}';
+        document.getElementById('radio').innerHTML = output;
+        document.getElementById('monat').style.display = "block";
+    }
+
+    function loadFormJahr(){
+        alleAusblenden();
+        var output = '';
+        output += '{{ form.radio(value="jahr", type="hidden") }}';
+        document.getElementById('radio').innerHTML = output;
+        document.getElementById('jahr').style.display = "block";
+    }
+
+    function loadFormBeliebig(){
+        alleAusblenden();
+        var output = '';
+        output += '{{ form.radio(value="beliebig", type="hidden") }}';
+        document.getElementById('radio').innerHTML = output;
+        document.getElementById('beliebig').style.display = "block";
+    }
+
+    // Blende alle Eingabefelder aus
+    function alleAusblenden(){
+        document.getElementById('tag').style.display = "none";
+        document.getElementById('woche').style.display = "none";
+        document.getElementById('monat').style.display = "none";
+        document.getElementById('jahr').style.display = "none";
+        document.getElementById('beliebig').style.display = "none";
+    }
+
+    // Die folgenden Funktionen aktivieren bzw. deaktivieren die Checkboxen bei auswahl
+
+    function changeBoxErkrankung(){
+        if (document.getElementById('erkrankung').checked){
+            document.getElementById('erkrankungForm').innerHTML = '{{ form.erkrankung(value="true", type="hidden") }}';
+        }
+        else{
+            document.getElementById('erkrankungForm').innerHTML = '{{ form.erkrankung(value="false", type="hidden") }}';
+        }
+    }
+
+    function changeBoxHomeOffice(){
+        if (document.getElementById('homeOffice').checked){
+            document.getElementById('homeOfficeForm').innerHTML = '{{ form.home_office(value="true", type="hidden") }}';
+        }
+        else{
+            document.getElementById('homeOfficeForm').innerHTML = '{{ form.home_office(value="false", type="hidden") }}';
+        }
+    }
+
+    function changeBoxUrlaub(){
+        if (document.getElementById('urlaub').checked){
+            document.getElementById('urlaubForm').innerHTML = '{{ form.urlaub(value="true", type="hidden") }}';
+        }
+        else{
+            document.getElementById('urlaubForm').innerHTML = '{{ form.urlaub(value="false", type="hidden") }}';
+        }
+    }
+
+    function changeBoxZeitausgleich(){
+        if (document.getElementById('zeitausgleich').checked){
+            document.getElementById('zeitausgleichForm').innerHTML = '{{ form.zeitausgleich(value="true", type="hidden") }}';
+        }
+        else{
+            document.getElementById('zeitausgleichForm').innerHTML = '{{ form.zeitausgleich(value="false", type="hidden") }}';
+        }
+    }
+
+    function initBoxes(){
+            document.getElementById('erkrankungForm').innerHTML = '{{ form.erkrankung(value="false", type="hidden") }}';
+            document.getElementById('homeOfficeForm').innerHTML = '{{ form.home_office(value="false", type="hidden") }}';
+            document.getElementById('urlaubForm').innerHTML = '{{ form.urlaub(value="false", type="hidden") }}';
+            document.getElementById('zeitausgleichForm').innerHTML = '{{ form.zeitausgleich(value="false", type="hidden") }}';
+    }
+
+    // zeige absteigende Fehlzeiten an
+    function sortDatumAbsteigend(){
+        document.getElementById('sortAufsteigend').style.display = "none";
+        document.getElementById('sortAbsteigend').style.display = "block";
+    }
+
+    // zeige aufsteigende Fehlzeiten an
+    function sortDatumAufsteigend(){
+        document.getElementById('sortAbsteigend').style.display = "none";
+        document.getElementById('sortAufsteigend').style.display = "block";
+    }
+</script>
+
+{% endblock %}

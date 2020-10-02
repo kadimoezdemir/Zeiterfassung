@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+
+{% block title %}Mitarbeiter suchen{% endblock %}
+{% block page_title %}Mitarbeiter suchen{% endblock %}
+
+
+{# Anzeigen des Mitarbeiter-Suchformulars und eventueller Suchergebnisse #}
+{% block body %}
+{# Suchformular #}
+<div class="row">
+    <form action="" method="POST" class="form form-group col-sm-12 col-md-8 offset-md-2" role="form" novalidate>
+        <div class="input-group">
+            {{ form.suche(class="form-control", placeholder="Geben Sie einen Namen ein", value=letzte_suche) }}
+            <div class="input-group-append">
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+        </div>
+    </form>
+</div>
+{# Suchergebnisse mit übergebenen Funktions-Items #}
+{% if ma %}
+<div class="container">
+    <div class="list-group">
+        {% for m in ma %}
+        <div class="list-group-item">
+            <div class="row">
+                <div class="col-sm-6">
+                    {{ m.vorname }} {{ m.nachname }}
+                    {% if m.aktiv %}
+                    <span class="badge badge-success">
+                    {% else %}
+                    <span class="badge badge-danger">
+                    {% endif %}
+                        {{ m.username }}</span>
+                </div>
+                <div class="col-sm-6 text-right">
+                    {% if funktionen %}
+                    {% for f in funktionen %}
+                    {% if f.route == 'mitarbeiter.aktivieren' and m.aktiv %}
+                    {% elif f.route == 'mitarbeiter.deaktivieren' and not m.aktiv %}
+                    {% else %}
+                    <a class="btn btn-sm btn-primary" href="{{ url_for(f.route, username=m.username) }}"> {{ f.label }}</a>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-center">
+            <a class="btn btn-danger" href="{{ url_for('main.home') }}">Abbrechen</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

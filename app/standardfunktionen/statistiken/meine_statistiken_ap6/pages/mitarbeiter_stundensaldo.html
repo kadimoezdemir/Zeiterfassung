@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if show_name %}
+    Stundensaldo von {{ name }}
+    {% else %}
+    Mein Stundensaldo
+    {% endif %}
+{% endblock %}
+
+{% block page_title %}
+    {% if show_name %}
+    Stundensaldo von {{ name }}
+    {% else %}
+    Mein Stundensaldo
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Aktivität', 'Anzahl der betroffenen Tage'],
+          ['Urlaubstage', {{ urlaub["genommen"] }}],
+          ['Arbeitstage', {{ arbeitstage["erfasst"] }}],
+          ['Fehltage', {{ anzahl_fehltage }}]
+        ]);
+
+        var options = {
+            title: '',
+            pieHole: 0.4,
+            colors: ['#6c757e', '#27a844', '#dc3546']
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+    }
+    </script>
+
+
+    <div class="card mb-5">
+        {% if show_name %}
+        <div class="card-title p-2 border">
+            <div class="float-left">
+                <h2>{{ name }}</h2>
+            </div>
+            <div class="dropdown float-right">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ year }}
+                </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        {% for y in range(min_year, now_year + 1) %}
+                            <a class="dropdown-item" href="{{ url_for('statistiken_ap6.stundensaldo', username=username, year=y) }}">{{ y }}</a>
+                        {% endfor %}
+                  </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="card-body row">
+            <div id="piechart" style="width: 900px; height: 500px;"></div>
+
+            <div class="col-xs-6 m-2" style="width: 15rem">
+                <ul class="list-group">
+                    <li class="list-group-item active">Stundensaldo</li>
+                    <li class="list-group-item">Offen: {{ saldo["offen"] }}</li>
+                    <li class="list-group-item">Erfasst: {{ saldo["erfasst"] }}</li>
+                    <li class="list-group-item">Saldo: {{ saldo["saldo"] }}</li>
+                </ul>
+            </div>
+
+            <div class="col-xs-6 m-2" style="width: 15rem">
+                <ul class="list-group">
+                    <li class="list-group-item active">Arbeitstage</li>
+                    <li class="list-group-item">Offen: {{ arbeitstage["offen"] }}</li>
+                    <li class="list-group-item">Erfasst: {{ arbeitstage["erfasst"] }}</li>
+                    <li class="list-group-item">Saldo: {{ arbeitstage["saldo"] }}</li>
+                </ul>
+            </div>
+
+            <div class="col-xs-6 m-2" style="width: 15rem">
+                <ul class="list-group">
+                    <li class="list-group-item active">Urlaub</li>
+                    <li class="list-group-item">Gesamt: {{ urlaub["gesamt"] }}</li>
+                    <li class="list-group-item">Genommen: {{ urlaub["genommen"] }}</li>
+                    <li class="list-group-item">Rest: {{ urlaub["rest"] }}</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

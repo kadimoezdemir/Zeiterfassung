@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Mitarbeiter anlegen{% endblock %}
+{% block page_title %}Mitarbeiter anlegen{% endblock %}
+
+
+{# Anzeigen des Formulars zum Anlegen eines neuen Mitarbeiters #}
+{% block body %}
+    <form action="" method="POST" class="form form-horizontal" role="form" novalidate>
+        <div class="form-group row">
+            {{ form.vorname.label(class="ma-label col-md-2 offset-md-2 col-sm-12 text-md-right text-sm-left") }}
+            {{ form.vorname(class="form-control col-md-6 col-sm-12" + (" is-invalid" if form.vorname.errors else ""), placeholder="Vorname") }}
+            <div class="invalid-feedback col-sm-12 col-md-6 offset-sm-0 offset-md-4">
+                {% for error in form.vorname.errors %}
+                {{ error }}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="form-group row">
+            {{ form.nachname.label(class="ma-label col-md-2 offset-md-2 col-sm-12 text-md-right text-sm-left") }}
+            {{ form.nachname(class="form-control col-md-6 col-sm-12" + (" is-invalid" if form.nachname.errors else ""), placeholder="Nachname") }}
+            <div class="invalid-feedback col-sm-12 col-md-6 offset-sm-0 offset-md-4">
+                {% for error in form.nachname.errors %}
+                {{ error }}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="form-group row">
+            {{ form.username.label(class="ma-label col-md-2 offset-md-2 col-sm-12 text-md-right text-sm-left") }}
+            {{ form.username(class="form-control col-md-6 col-sm-12" + (" is-invalid" if form.username.errors else ""), placeholder="Username") }}
+            <div class="invalid-feedback col-sm-12 col-md-6 offset-sm-0 offset-md-4">
+                {% for error in form.username.errors %}
+                {{ error }}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="form-group row">
+            {{ form.passwort.label(class="ma-label col-md-2 offset-md-2 col-sm-12 text-md-right text-sm-left") }}
+            {{ form.passwort(class="form-control col-md-6 col-sm-12" + (" is-invalid" if form.passwort.errors else ""), placeholder="Passwort") }}
+            <div class="invalid-feedback col-sm-12 col-md-6 offset-sm-0 offset-md-4">
+                {% for error in form.passwort.errors %}
+                {{ error }}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="form-group row">
+            {{ form.passwort_wiederholen.label(class="ma-label col-md-2 offset-md-2 col-sm-12 text-md-right text-sm-left") }}
+            {{ form.passwort_wiederholen(class="form-control col-md-6 col-sm-12" + (" is-invalid" if form.passwort_wiederholen.errors else ""), placeholder="Passwort wiederholen") }}
+            <div class="invalid-feedback col-sm-12 col-md-6 offset-sm-0 offset-md-4">
+                {% for error in form.passwort_wiederholen.errors %}
+                {{ error }}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="form-group row">
+            {{ form.rolle.label(class="ma-label col-md-2 offset-md-2 col-sm-12 text-md-right text-sm-left") }}
+            {{ form.rolle(class="form-control col-md-6 col-sm-12 custom-select" + (" is-invalid" if form.rolle.errors else ""), placeholder="Rolle") }}
+            <div class="invalid-feedback col-sm-12 col-md-6 offset-sm-0 offset-md-4">
+                {% for error in form.rolle.errors %}
+                {{ error }}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="form-group row">
+            {{ form.gebdat.label(class="ma-label col-md-2 offset-md-2 col-sm-12 text-md-right text-sm-left") }}
+            {{ form.gebdat(class="form-control col-md-6 col-sm-12" + (" is-invalid" if form.gebdat.errors else ""), placeholder="Geburtsdatum") }}
+            <div class="invalid-feedback col-sm-12 col-md-6 offset-sm-0 offset-md-4">
+                {% for error in form.gebdat.errors %}
+                {{ error }}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="form-group row">
+            {{ form.geschlecht.label(class="ma-label col-md-2 offset-md-2 col-sm-12 text-md-right text-sm-left") }}
+            {{ form.geschlecht(class="form-control col-md-6 col-sm-12 custom-select" + (" is-invalid" if form.geschlecht.errors else ""), placeholder="Geschlecht") }}
+            <div class="invalid-feedback col-sm-12 col-md-6 offset-sm-0 offset-md-4">
+                {% for error in form.geschlecht.errors %}
+                {{ error }}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="form-group row">
+            {{ form.email.label(class="ma-label col-md-2 offset-md-2 col-sm-12 text-md-right text-sm-left") }}
+            {{ form.email(class="form-control col-md-6 col-sm-12" + (" is-invalid" if form.email.errors else ""), placeholder="E-Mail") }}
+            <div class="invalid-feedback col-sm-12 col-md-6 offset-sm-0 offset-md-4">
+                {% for error in form.email.errors %}
+                {{ error }}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="form-group row">
+            {{ form.telefon.label(class="ma-label col-md-2 offset-md-2 col-sm-12 text-md-right text-sm-left") }}
+            {{ form.telefon(class="form-control col-md-6 col-sm-12" + (" is-invalid" if form.telefon.errors else ""), placeholder="Telefon") }}
+            <div class="invalid-feedback col-sm-12 col-md-6 offset-sm-0 offset-md-4">
+                {% for error in form.telefon.errors %}
+                {{ error }}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="ma-label col-md-2 offset-md-2 col-sm-12 text-md-right text-sm-left">Adresse</label>
+
+            {{ form.adresse_plz(class="form-control col-md-2 col-sm-4" + (" is-invalid" if form.adresse_plz.errors else ""), placeholder="PLZ") }}
+            {{ form.adresse_ort(class="form-control col-md-4 col-sm-8" + (" is-invalid" if form.adresse_ort.errors else ""), placeholder="Ort") }}
+
+            <div class="invalid-feedback col-md-2 col-sm-4 offset-sm-0 offset-md-4">
+                {% for error in form.adresse_plz.errors %}
+                {{ error }}
+                {% endfor %}
+            </div>
+
+            <div class="invalid-feedback col-md-4 col-sm-8 offset-sm-0 offset-md-0">
+                {% for error in form.adresse_ort.errors %}
+                {{ error }}
+                {% endfor %}
+            </div>
+
+            {{ form.adresse_strasse(class="form-control input-lg offset-md-4 col-md-4 col-sm-8" + (" is-invalid" if form.adresse_strasse.errors else ""), placeholder="Straße") }}
+            {{ form.adresse_hausnr(class="form-control col-md-2 col-sm-4" + (" is-invalid" if form.adresse_hausnr.errors else ""), placeholder="Hausnr.") }}
+
+            <div class="invalid-feedback col-md-4 col-sm-8 offset-sm-0 offset-md-4">
+                {% for error in form.adresse_strasse.errors %}
+                {{ error }}
+                {% endfor %}
+            </div>
+
+            <div class="invalid-feedback col-md-2 col-sm-4 offset-sm-0 offset-md-0">
+                {% for error in form.adresse_hausnr.errors %}
+                {{ error }}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="form-group row">
+            {{ form.stunden_pro_woche.label(class="ma-label col-md-2 offset-md-2 col-sm-12 text-md-right text-sm-left") }}
+            {{ form.stunden_pro_woche(class="form-control col-md-6 col-sm-12" + (" is-invalid" if form.stunden_pro_woche.errors else ""), placeholder="Stunden pro Woche") }}
+            <div class="invalid-feedback col-sm-12 col-md-6 offset-sm-0 offset-md-4">
+                {% for error in form.stunden_pro_woche.errors %}
+                {{ error }}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="form-group row">
+            {{ form.urlaubstage.label(class="ma-label col-md-2 offset-md-2 col-sm-12 text-md-right text-sm-left") }}
+            {{ form.urlaubstage(class="form-control col-md-6 col-sm-12" + (" is-invalid" if form.urlaubstage.errors else ""), placeholder="Urlaubstage pro Jahr") }}
+            <div class="invalid-feedback col-sm-12 col-md-6 offset-sm-0 offset-md-4">
+                {% for error in form.urlaubstage.errors %}
+                {{ error }}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-12 col-md-6 offset-sm-0 offset-md-4">
+                {{ form.submit(class="btn btn-success") }}
+                <a href="{{ url_for('main.home') }}" class="btn btn-danger">Abbrechen</a>
+            </div>
+        </div>
+    </form>
+{% endblock %}

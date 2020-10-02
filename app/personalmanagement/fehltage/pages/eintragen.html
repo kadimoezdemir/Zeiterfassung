@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}
+Fehlzeit eintragen
+{% endblock %}
+{% block page_title %}
+Fehlzeit eintragen
+{% endblock %}
+
+{% block body %}
+<!-- "Fehlzeit bearbeiten"-Formular anzeigen -->
+<form action="" method="POST" class="form form-horizontal" role="form" novalidate>
+        <!-- Startdatum Eingabefeld -->
+        <div class="form-group row">
+            {{ form.datum_start.label(class="col-md-2 offset-md-2 col-sm-12 text-md-right text-sm-left") }}
+            {{ form.datum_start(class="form-control col-md-6 col-sm-12" + (" is-invalid" if form.datum_start.errors else ""), placeholder="Datum", type="date") }}
+            <div class="invalid-feedback col-sm-12 col-md-6 offset-sm-0 offset-md-4">
+                {% for error in form.datum_start.errors %}
+                Dies ist ein Pflichtfeld.
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Enddatum Eingabefeld-->
+        <div class="form-group row">
+            {{ form.datum_ende.label(class="col-md-2 offset-md-2 col-sm-12 text-md-right text-sm-left") }}
+            {{ form.datum_ende(class="form-control col-md-6 col-sm-12" + (" is-invalid" if form.datum_ende.errors else ""), placeholder="Datum", type="date") }}
+            <div class="invalid-feedback col-sm-12 col-md-6 offset-sm-0 offset-md-4">
+                {% for error in form.datum_ende.errors %}
+                Dies ist ein Pflichtfeld.
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Grund Eingabefeld -->
+        <div class="form-group row">
+            {{ form.grund.label(class="col-md-2 offset-md-2 col-sm-12 text-md-right text-sm-left") }}
+            {{ form.grund(class="form-control col-md-6 col-sm-12" + (" is-invalid" if form.grund.errors else ""), placeholder="Grund des Fehlens") }}
+            <div class="invalid-feedback col-sm-12 col-md-6 offset-sm-0 offset-md-4">
+                {% for error in form.grund.errors %}
+                Dies ist ein Pflichtfeld.
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- verstecktes Fehlzeit ID Feld (wird automatisch ausgefüllt) -->
+        <div class="form-group row">
+            {{ form.id(class="form-control col-md-6 col-sm-12" + (" is-invalid" if form.id.errors else ""), type="hidden") }}
+            <div class="invalid-feedback col-sm-12 col-md-6 offset-sm-0 offset-md-4">
+                {% for error in form.id.errors %}
+                Dies ist ein Pflichtfeld.
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Speichern und Abbrechen Button-->
+        <div class="form-group row">
+            <div class="col-sm-12 col-md-10 offset-sm-0 offset-md-4">
+                {{ form.submit(class="btn btn-success") }}
+                <a href="{{ url_for('fehltage.uebersicht', username=mitarbeiter.username) }}" class="btn btn-danger">Abbrechen</a>
+            </div>
+        </div>
+    </form>
+ {% endblock %}
+

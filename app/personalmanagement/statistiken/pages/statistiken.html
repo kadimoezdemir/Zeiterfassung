@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Statistiken{% endblock %}
+{% block page_title %}Statistiken{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-4 col-sm-12 mb-4">
+        <div class="card menu-item">
+            <img class="card-img-top" src="/static/icons/arbeitstage.svg" alt="Card image cap">
+            <div class="card-body text-center"><a  class="btn btn-primary" href=" {{ url_for('statistiken_ap5.jahresarbeitstage_uebersicht') }} ">Jahresarbeitstage-Übersicht</a></div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12 mb-4">
+        <div class="card menu-item">
+            <img class="card-img-top" src="/static/icons/anwesenheitstableau.svg" alt="Card image cap">
+            <div class="card-body text-center"><a  class="btn btn-primary" href=" {{ url_for('statistiken_ap5.anwesenheitstableau') }} ">Anwesenheitstableau</a></div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12 mb-4">
+        <div class="card menu-item">
+            <img class="card-img-top" src="/static/icons/stundensaldo.svg" alt="Card image cap">
+            <div class="card-body text-center"><a  class="btn btn-primary" href=" {{ url_for('statistiken_ap6.stundensaldo') }} ">Stundensaldo</a></div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12 mb-4">
+        <div class="card menu-item">
+            <img class="card-img-top" src="/static/icons/jahresstunden.svg" alt="Card image cap">
+            <div class="card-body text-center"><a  class="btn btn-primary" href=" {{ url_for('statistiken_ap6.jahresstunden_uebersicht') }} ">Jahresstunden-Übersicht</a></div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block meta %}
+    <meta name="description" content="">
+    <meta name="author" content="">
+    {% endblock %}
+
+    {% assets "common_css" %}
+    <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}" />
+    {% endassets %}
+
+    {% block css %}
+    {% endblock %}
+
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary menu-item" style="position: sticky; left: 0; top: 0; z-index: 800">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbar" aria-controls="myNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="navbar-nav ml-auto">
+                {% if current_user.is_authenticated %}
+                <li><span class ="nav-link">Eingeloggt als: {{current_user.username}}</span></li>
+                <li><a class="nav-link" href="#" onclick="$('#logoutmodal').modal();"><span class="fas fa-sign-in-alt fa-lg"></span> Logout </a></li>
+                {% else %}
+                <li><a class="nav-link" href="{{ url_for('main.login') }}"><span class="fas fa-sign-in-alt fa-lg"></span> Login </a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    {# Anzeigen von Flash-Nachrichten, falls vorhanden #}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="row">
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    {# Anzeigen der Seitenüberschrift, falls vorhanden #}
+    {% if self.page_title() %}
+    <div class="row mb-4">
+        <div class="col d-flex justify-content-center">
+            <div style="font-weight: 500; font-size: 1.2rem;">{% block page_title %}{% endblock %}</div>
+        </div>
+        <hr style="width: 100%;"/>
+    </div>
+    {% endif %}
+
+    {# Nur auf der Startseite verwendeter Block für Ein- und Ausstempelbuttons etc.
+       Extra-Block, damit das Stempel-Modul sauber vom restlichen Startseiteninhalt getrennt ist #}
+    <div class="row">
+        {% block zeitstempel %}
+        {% endblock %}
+    </div>
+
+    {# Hier steht der jeweilige Inhalt -> muss von jeder Seite implementiert werden #}
+    {% block body %}
+    {% endblock %}
+
+    {# Spacer unter dem Inhalt, damit Bestätigungsbuttons etc. nicht unten am Seitenrand festkleben #}
+    <div style="height: 2rem;"></div>
+
+</div>
+
+
+{% assets "common_js" %}
+<script type="text/javascript" src="{{ ASSET_URL }}"></script>
+{% endassets %}
+
+{% block js %}
+{% endblock %}
+</div>
+</body>
+</html>
+
+
+<!-- Logout "Popup"-->
+<div class="modal fade" id="logoutmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5>Wollen Sie sich wirklich ausloggen?</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Abbrechen</button>
+                <button type="button" class="btn btn-success" onclick="location.href='/logout';">Ausloggen</button>
+            </div>
+        </div>
+    </div>
+</div>
+

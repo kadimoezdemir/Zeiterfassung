@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Meine Statistiken{% endblock %}
+{% block page_title %}Meine Statistiken{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-md-4 col-sm-12 mb-4">
+        <div class="card menu-item">
+            <img class="card-img-top" src="/static/icons/arbeitstage.svg" alt="Card image cap">
+            <div class="card-body text-center"><a  class="btn btn-primary" href=" {{ url_for('meine_statistiken_ap5.meine_jahresarbeitstage_uebersicht') }} ">Meine Jahresarbeitstage-Übersicht</a></div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12 mb-4">
+        <div class="card menu-item">
+            <img class="card-img-top" src="/static/icons/stundensaldo.svg" alt="Card image cap">
+            <div class="card-body text-center"><a  class="btn btn-primary" href=" {{ url_for('meine_statistiken_ap6.mein_stundensaldo') }} ">Mein Stundensaldo</a></div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12 mb-4">
+        <div class="card menu-item">
+            <img class="card-img-top" src="/static/icons/jahresstunden.svg" alt="Card image cap">
+            <div class="card-body text-center"><a  class="btn btn-primary" href=" {{ url_for('meine_statistiken_ap6.meine_jahresstunden_uebersicht') }} ">Meine Jahresstunden-Übersicht</a></div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

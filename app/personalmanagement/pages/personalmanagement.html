@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Personalmanagement{% endblock %}
+{% block page_title %}Personalmanagement{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-4 col-sm-12 mb-4">
+        <div class="card menu-item">
+            <img class="card-img-top" src="/static/icons/neuer_mitarbeiter.svg" alt="Card image cap">
+            <div class="card-body text-center"><a  class="btn btn-primary" href=" {{ url_for('mitarbeiter.neu') }} ">Neuer Mitarbeiter</a></div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12 mb-4">
+        <div class="card menu-item">
+            <img class="card-img-top" src="/static/icons/mitarbeiter_bearbeiten.svg" alt="Card image cap">
+            <div class="card-body text-center"><a  class="btn btn-primary" href=" {{ url_for('mitarbeiter.stammdaten') }} ">Stammdatenverwaltung</a></div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12 mb-4">
+        <div class="card menu-item">
+            <img class="card-img-top" src="/static/icons/fehltage.svg" alt="Card image cap">
+            <div class="card-body text-center"><a  class="btn btn-primary" href=" {{ url_for('fehltage.home') }} ">Fehltage</a></div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12 mb-4">
+        <div class="card menu-item">
+            <img class="card-img-top" src="/static/icons/statistiken.svg" alt="Card image cap">
+            <div class="card-body text-center"><a  class="btn btn-primary" href=" {{ url_for('statistiken.home') }} ">Statistiken</a></div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12 mb-4">
+        <div class="card menu-item">
+            <img class="card-img-top" src="/static/icons/zeitstempel_bearbeiten.svg" alt="Card image cap">
+            <div class="card-body text-center"><a  class="btn btn-primary" href=" {{ url_for('zeitstempel.home') }} ">Zeitstempel bearbeiten</a></div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Zeitstempel bearbeiten{% endblock %}
+{% block page_title %}Zeitstempel bearbeiten{% endblock %}
+
+{% block body %}
+<h3> {{ ma.vorname }} {{ ma.nachname }}</h3>
+{% if zt %}
+<table class="table">
+    <thead>
+    <tr style="text-align:center">
+        <th>Eingestempelt</th>
+        <th>Ausgestempelt</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for z in zt|sort(attribute='eingestempelt', reverse = true) %}
+    <tr class="table-light">
+        <td>
+            <div class="row">
+                <div class="col-xl-3">{{ ca.day_name[z.eingestempelt.weekday()] }}</div>
+                <div class="col-xl-3">{{ z.eingestempelt.strftime("%d.%m.%Y") }}</div>
+                <div class="col-xl-2">{{ z.eingestempelt.strftime("%H:%M:%S") }}</div>
+            </div>
+        </td>
+        {% if z.ausgestempelt %}
+        <td>
+            <div class="row">
+                <div class="col-xl-3">{{ ca.day_name[z.ausgestempelt.weekday()] }}</div>
+                <div class="col-lg-3">{{ z.ausgestempelt.strftime("%d.%m.%Y") }}</div>
+                <div class="col-lg-2">{{ z.ausgestempelt.strftime("%H:%M:%S") }}</div>
+            </div>
+        </td>
+        {% else %}
+        <!-- Wenn Ausstempel-Zeitstempel nicht vorhanden ist, wird stattdessen ein "-" angezeigt -->
+        <td>
+            <div class="row">
+                <div style="padding-left:8em">-</div>
+            </div>
+        </td>
+        {% endif %}
+        <td>
+            <div class="col-sm-6 text-right">
+                {% if funktionen %}
+                {% for fc in funktionen %}
+                <a class="btn btn-sm btn-primary" href="{{ url_for(fc.route, username=ma.username, zt_id=z.id) }}"> {{ fc.label }}</a>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<!-- Wenn keine Zeitstempel vorhanden sind-->
+<table class="table">
+    <thead>
+    <tr>
+        <th></th>
+        <th style="padding-left:5em">Eingestempelt</th>
+        <th style="padding-left:5em">Ausgestempelt</th>
+        <th></th>
+    </tr>
+    </thead>
+</table>
+<center>Keine Zeitstempel vorhanden</center>
+{% endif %}
+{% endblock %}
+
+
